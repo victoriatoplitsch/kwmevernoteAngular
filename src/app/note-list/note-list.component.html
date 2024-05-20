@@ -1,0 +1,11 @@
+<h1>Notizen:</h1>
+@if(authService.isLoggedIn()){
+<a class="ui tiny green labeled icon button" [routerLink]="['../adminNote']">
+  <i class="save icon"></i>Notiz erstellen
+</a>
+}
+<div class="ui middle aligned selection divided">
+  @for (note of notes; track note){
+    <a class="item ke-note-list-item" [note]="note" [routerLink]="note.id"></a>
+  }
+</div>

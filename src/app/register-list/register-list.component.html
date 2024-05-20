@@ -1,0 +1,13 @@
+
+<h1>Listen:</h1>
+
+@if(authService.isLoggedIn()){
+<a class="ui tiny green labeled icon button" [routerLink]="['../adminRegister']">
+  <i class="save icon"></i>Liste erstellen
+</a>
+}
+<div class="ui middle aligned selection divided">
+  @for (register of registers; track register){
+    <a class="item ke-register-list-item" [register]="register" [routerLink]="register.id"></a>
+  }
+</div>

@@ -1,0 +1,53 @@
+@if(tag){
+  <div class="ui grid">
+    <div class="four wide column">
+
+    </div>
+    <div class="twelve wide column">
+      <h1>Tag Detailansicht:</h1>
+      <h2 class="ui header">{{ tag.name }}</h2>
+      <div class="ui divider"></div>
+      <div class="ui grid">
+        <div class="four wide column">
+          <h4 class="ui header">Erstellt am</h4>
+          {{ tag.created_at | date: 'longDate'}}
+        </div>
+        <div class="four wide column">
+          <h4 class="ui header">Zuletzt geupdated am</h4>
+          {{ tag.updated_at | date: 'longDate'}}
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="sixteen wide column">
+      <div class="ui small images">
+
+      </div>
+    </div>
+  <h2>Zugehörige Todos:</h2>
+  <div class="ui middle aligned selection divided">
+    @for (todo of todos; track todo){
+      <a class="item ke-todo-list-item" [todo]="todo" [routerLink]="['/todos',todo.id]"></a>
+    }
+  </div>
+  <br/>
+  <br/>
+  <h2>Zugehörige Notizen:</h2>
+  <div class="ui middle aligned selection divided">
+    @for (note of notes; track note){
+      <a class="item ke-note-list-item" [note]="note" [routerLink]="['/notes', note.id]"></a>
+    }
+  </div>
+  <br/>
+  <br/>
+  <button [routerLink]="'/tags'" class="ui labeled icon button"><i class="left arrow icon"></i>Zurück zu den Tags</button>
+  <br/>
+  <br/>
+  @if(authService.isLoggedIn()){
+  <button class="ui tiny red labeled icon button" (click)="removeTag()">
+    <i class="remove icon"></i>Tag löschen</button>
+  <a class="ui tiny yellow labeled icon button" [routerLink]="['../../adminTag', tag.id]">
+    <i class="edit icon"></i>Tag bearbeiten
+  </a>
+  }
+}

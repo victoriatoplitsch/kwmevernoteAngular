@@ -1,0 +1,10 @@
+<div class="ui container">
+  <h1>Home</h1>
+  <p>Willkommen zu KWM-Evernote!</p>
+  <a routerLink="../registers" class="ui blue button">Liste ansehen</a><br/><br/>
+  <a routerLink="../notes" class="ui blue button">Notizen ansehen</a><br/><br/>
+  <a routerLink="../todos" class="ui blue button">Todos ansehen</a><br/><br/><br><br>
+  <h3>Filtere Tags:</h3>
+  <ke-search class="column" (tagSelected)="tagSelected($event)"></ke-search><br/><br/>
+  <a routerLink="../tags" class="ui blue button">Tags ansehen</a><br/><br/>
+</div>

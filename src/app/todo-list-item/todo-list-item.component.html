@@ -1,0 +1,14 @@
+<br/>
+<div class="ui cards">
+  <div class="card">
+@if(todo && todo.images && todo.images[0]){
+  <img class="ui tiny image" [src]="todo.images[0].url"/>
+}
+
+    <div class="content">
+      <div class="header">{{todo?.title }}</div>
+      <div class="description"> {{ todo?.description }} </div>
+      <div class="description"><span>Erledigt bis:</span> {{ todo?.due_date }} </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<h1>Todo-Formular:</h1>
+<form class="ui large form" [formGroup]="todoForm" (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label for="title">Titel</label>
+    <input type="text" id="title" formControlName="title">
+    @if(errors['title']){
+      <div class="ui negative message"> {{ errors['title'] }} </div>
+    }
+  </div>
+  <div class="field">
+    <label>Beschreibung</label>
+    <textarea formControlName="description" rows="3"></textarea>
+  </div>
+  <div class="field">
+    <label>Fälligkeitsdatum</label>
+    <input type="date" formControlName="due_date">
+    @if(errors['due_date']){
+      <div class="ui negative message">{{ errors['due_date'] }} </div>
+    }
+  </div>
+  <div class="field">
+    <label for="users">Benutzer wählen:</label>
+    <select id="users" formControlName="user_id">
+      @for (user of users; track user) {
+        <option [value]="user.id">
+          <span>{{ user?.firstName }} {{ user?.lastName }}</span>
+        </option>
+      }
+    </select>
+    @if(errors['user_id']){
+      <div class="ui negative message">{{ errors['user_id'] }} </div>
+    }
+  </div>
+  <div class="field">
+    <label for="notes">Notiz wählen:</label>
+    <select id="notes" formControlName="note_id">
+      @for (note of notes; track note) {
+        <option [value]="note.id">
+          <span>{{ note?.title }}</span>
+        </option>
+      }
+    </select>
+  </div>
+  <div class="field">
+    <label for="tags">Tag wählen:</label>
+    <select id="tags" formControlName="tags" multiple>
+      @for (tag of tags; track tag) {
+        <option [value]="tag.id">
+          <span>{{ tag?.name }}</span>
+        </option>
+      }
+    </select>
+  </div>
+  <div class="field">
+    <label>Erstellungsdatum</label>
+    <input type="date" formControlName="created_at">
+  </div>
+  <div class="field">
+    <label>Änderungsdatum</label>
+    <input type="date" formControlName="updated_at">
+  </div>
+  <div class="field">
+    <label>Bilder einfügen:</label>
+    <div formArrayName="images">
+      @for(control of images.controls; let i =$index, l=$last; track control){
+        <div class="fields" [formGroupName]="i">
+          <input type="hidden" formControlName="id">
+          <div class="nine wide field">
+            <input formControlName="url" placeholder="http://bild{{i+1}}_url">
+          </div>
+          <div class="six wide field">
+            <input formControlName="caption" placeholder="Bild{{i+1}}_Beschreibung">
+          </div>
+          @if(l){
+            <div class="one wide field">
+              <button (click)="addThumbnailControl()" class="ui large button" type="button">+</button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <button type="submit" class="ui button" [disabled]="todoForm.invalid">Speichern</button>
+</form>
+

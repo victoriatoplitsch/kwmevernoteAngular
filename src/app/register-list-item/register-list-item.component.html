@@ -1,0 +1,13 @@
+@if(authService.isLoggedIn() ||  register?.is_public){
+<br/><div class="ui cards">
+  <div class="card">
+
+<div class="content">
+  <div class="header">{{register?.name }}</div>
+  <div class="description" >{{register?.is_public ? 'öffentlich': 'privat'}}</div>
+</div>
+  </div>
+  </div>
+}
+
+

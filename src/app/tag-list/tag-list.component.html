@@ -1,0 +1,11 @@
+<h1>Tags:</h1>
+@if(authService.isLoggedIn()){
+<a class="ui tiny green labeled icon button" [routerLink]="['../adminTag']">
+  <i class="save icon"></i>Tag erstellen
+</a>
+}
+<div class="ui middle aligned selection divided">
+  @for (tag of tags; track tag){
+    <a class="item ke-tag-list-item" [tag]="tag" [routerLink]="tag.id"></a>
+  }
+</div>

@@ -1,0 +1,44 @@
+<h1>Listen-Formular:</h1>
+<form class="ui large form" [formGroup]="registerForm" (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name">
+    @if(errors['name']){
+      <div class="ui negative message"> {{ errors['name'] }} </div>
+    }
+  </div>
+  <div class="field">
+    <label for="is_public">Öffentlich/Privat</label>
+    <select id="is_public" formControlName="is_public">
+      <option value="0">Öffentlich</option>
+      <option value="1">Privat</option>
+    </select>
+    @if(errors['is_public']){
+      <div class="ui negative message"> {{ errors['is_public'] }} </div>
+    }
+  </div>
+  <div class="field">
+    <label for="users">Benutzer wählen:</label>
+    <select id="users" formControlName="user_id">
+      @for (user of users; track user) {
+      <option [value]="user.id">
+        <span>{{ user?.firstName }} {{ user?.lastName }}</span>
+      </option>
+      }
+      @if(errors['user_id']){
+        <div class="ui negative message">{{ errors['user_id'] }} </div>
+      }
+    </select>
+  </div>
+  <div class="field">
+    <label>Erstellungsdatum</label>
+    <input type="date" formControlName="created_at">
+  </div>
+  <div class="field">
+    <label>Änderungsdatum</label>
+    <input type="date" formControlName="updated_at">
+  </div>
+
+  <button type="submit" class="ui button" [disabled]="registerForm.invalid">Speichern</button>
+</form>

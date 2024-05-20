@@ -1,0 +1,11 @@
+<h1>Todos:</h1>
+@if(authService.isLoggedIn()){
+<a class="ui tiny green labeled icon button" [routerLink]="['../adminTodo']">
+  <i class="save icon"></i>Todo erstellen
+</a>
+}
+<div class="ui middle aligned selection divided">
+  @for (todo of todos; track todo){
+    <a class="item ke-todo-list-item" [todo]="todo" [routerLink]="todo.id"></a>
+  }
+</div>

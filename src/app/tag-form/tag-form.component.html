@@ -1,0 +1,23 @@
+<h1>Tag-Formular:</h1>
+<form class="ui large form" [formGroup]="tagForm" (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name">
+    @if(errors['name']){
+      <div class="ui negative message"> {{ errors['name'] }} </div>
+    }
+  </div>
+  <div class="field">
+    <label>Erstellungsdatum</label>
+    <input type="date" formControlName="created_at">
+  </div>
+  <div class="field">
+    <label>Änderungsdatum</label>
+    <input type="date" formControlName="updated_at">
+  </div>
+
+  <button type="submit" class="ui button" [disabled]="tagForm.invalid">Speichern</button>
+</form>
+
+

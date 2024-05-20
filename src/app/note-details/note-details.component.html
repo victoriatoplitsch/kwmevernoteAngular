@@ -1,0 +1,74 @@
+@if(note){
+  <div class="ui grid">
+      <div class="four wide column">
+        @if(note.images && note.images[0]){
+          <img class="ui medium image" [src]="note.images[0].url">
+        }
+      </div>
+    <div class="twelve wide column">
+
+      <h1>Notiz Detailansicht:</h1>
+      <div class="four wide column">
+        @if(note.tags && note.tags.length > 0){
+          @for (tag of note.tags; track tag){
+            <div class="ui tag teal label">
+              <span>{{tag.name}}</span>
+            </div>
+          }
+        }
+      </div>
+      <h2 class="ui header">{{ note.title}}</h2>
+      <h3 class="ui header">{{ note.description }}</h3>
+      <div class="ui divider"></div>
+      <div class="ui grid">
+        <div class="four wide column">
+          <h4 class="ui header">Liste</h4>
+          <span>{{ register?.name }}</span><br/>
+        </div>
+
+        <div class="four wide column">
+          <h4 class="ui header">Erstellt am</h4>
+          {{ note.created_at | date: 'longDate'}}
+        </div>
+        <div class="four wide column">
+          <h4 class="ui header">Zuletzt geupdated am</h4>
+          {{ note.updated_at | date: 'longDate'}}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sixteen wide column">
+      <p>Alle Bilder:</p>
+      <div class="ui small images">
+        <div class="sixteen wide column">
+          <div class="ui small bordered images">
+            @for (thumbnail of note.images; track thumbnail) {
+              <img [src]="thumbnail.url">
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <h2>Zugehörige Todos:</h2>
+  <div class="ui middle aligned selection divided">
+    @for (todo of todos; track todo){
+      <a class="item ke-todo-list-item" [todo]="todo" [routerLink]="['/todos',todo.id]"></a>
+    }
+  </div>
+  <br/>
+  <br/>
+
+  <button [routerLink]="'/notes'" class="ui labeled icon button"><i class="left arrow icon"></i>Zurück zu den Notizen</button>
+  <br/>
+  <br/>
+  @if(authService.isLoggedIn()){
+  <button class="ui tiny red labeled icon button" (click)="removeNote()">
+    <i class="remove icon"></i>Notiz löschen</button>
+  <a class="ui tiny yellow labeled icon button" [routerLink]="['../../adminNote', note.id]">
+    <i class="edit icon"></i>Notiz bearbeiten
+  </a>
+  }
+}

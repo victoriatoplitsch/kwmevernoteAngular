@@ -1,0 +1,74 @@
+@if(todo){
+  <div class="ui grid">
+      <div class="four wide column">
+        @if(todo.images && todo.images[0]){
+          <img class="ui medium image" [src]="todo.images[0].url">
+        }
+      </div>
+
+
+    <div class="twelve wide column">
+      <h1>Todo Detailansicht:</h1>
+      <div class="four wide column">
+        @if(todo.tags && todo.tags.length > 0){
+            @for (tag of todo.tags; track tag){
+              <div class="ui tag teal label">
+              <span>{{tag?.name}}</span>
+              </div>
+            }
+
+        }
+      </div>
+      <h2 class="ui header">{{ todo.title }}</h2>
+      <h3 class="ui header">{{ todo.description}}</h3>
+      <div class="ui divider"></div>
+      <div class="ui grid">
+        <div class="three wide column">
+          <h4 class="ui header">Deadline:</h4>
+          {{ todo.due_date | date: 'longDate'}}
+        </div>
+        <div class="three wide column">
+          <h4 class="ui header">Note</h4>
+          <span>{{ note?.title }} </span><br/>
+        </div>
+        <div class="three wide column">
+          <h4 class="ui header">User</h4>
+          <span>{{ user?.firstName }} {{ user?.lastName }}</span><br/>
+        </div>
+        <div class="three wide column">
+          <h4 class="ui header">Erstellt am</h4>
+          {{ todo.created_at | date: 'longDate'}}
+        </div>
+        <div class="three wide column">
+          <h4 class="ui header">Zuletzt geupdated am</h4>
+          {{ todo.updated_at | date: 'longDate'}}
+        </div>
+      </div>
+    </div>
+    <div class="sixteen wide column">
+      <p>Alle Bilder:</p>
+        <div class="ui small bordered images">
+          <div class="sixteen wide column">
+            <div class="ui small images">
+              @for (thumbnail of todo.images; track thumbnail) {
+                <img [src]="thumbnail.url">
+              }
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <button [routerLink]="'/todos'" class="ui labeled icon button"><i class="left arrow icon"></i>Zurück zu den Todos</button>
+  <br/>
+  <br/>
+  @if(authService.isLoggedIn()){
+  <button class="ui tiny red labeled icon button" (click)="removeTodo()">
+    <i class="remove icon"></i>Todo löschen</button>
+  <a class="ui tiny yellow labeled icon button" [routerLink]="['../../adminTodo', todo.id]">
+    <i class="edit icon"></i>Todo bearbeiten
+  </a>
+  }
+}
+
